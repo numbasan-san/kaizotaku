@@ -1,50 +1,57 @@
 <?php
-
     require_once "../Layout/layout.php";
     require_once "../Helpers/utilities.php";
+    require_once '../Settings/conect.php';
+    
+    $utilities = new Utilities();
+    $layout = new Layout($utilities, false);
 
-    $layout = new Layout ( true );
-    $utilities = new Utilities ();
+    // Verificar si se proporcionó un search_code válsearch_codeo en la URL
+    if (isset($_GET['search_code']) && !empty($_GET['search_code'])) {
+        // Obtener el search_code del registro a editar desde la URL
+        $search_code = $_GET['search_code'];
 
+        // Obtener los detalles del registro de la base de datos utilizando el search_code
+        $stmt = $pdo->prepare("SELECT * FROM noticias WHERE search_code = ?");
+        $stmt->execute([$search_code]);
+        $registro = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verificar si se encontró el registro
+        if (!$registro) {
+            echo "El registro no fue encontrado.";
+            exit; // Detener la ejecución si no se encontró el registro
+        }
+    } else {
+        echo "search_code inválido.";
+        exit; // Detener la ejecución si no se proporcionó un search_code válsearch_codeo
+    }
 ?>
-<?php echo $layout->printHeader (); ?>
+<?php echo $layout->printHeader(); ?>
 <div class="row">
-        <div class="col-md-10"></div>
-        <div class="col-md-2"></div>
-    </div>
-        <hr  />
+    <div class="col-md-10"></div>
+    <div class="col-md-2"></div>
+</div>
+<hr />
+<div class="row">
     <div class="row">
-        <form action="../Functions/add.php" method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="noticia-titulo" class="form-label">Titulo:</label>
-                <input name="titulo" type="text" class="form-control" id="inp_titulo" require>
+        <div class="col-md-7">
+            News Details
+            <h2 class="card-text"><b><?= $registro['title'] ?></b></h2> <!-- Aquí va el nombre de la compañía reclutante. -->
+            <p class="card-text"><?= $utilities->temas[$registro['topics']] ?></p> <!-- Aquí el lugar de ubicación de las oficinas. -->
+                <hr  />
+            <p class="card-text"><?= $registro['information'] ?></p> <!-- Aquí va la descripción del empleo, los detalles de las aptitudes y la información de contacto de la empresa.  -->
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                <img class="card-img" src="<?= "../../kaizotaku_authors/Functions/imgs/" . $registro['related_image']; ?>"  /> <!-- Aquí va el logo de la compañía. La imagen que está adjunta es solo de prueba. -->
+                        <hr  />
+                    <p class="card-text"><?= $registro['author'] ?>. <?= $registro['publication_date'] ?></p> <!-- Un agregado que se me ocurrió para que el usuario sepa cuando la propuesta fue hecha. -->
+                </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="noticia-tema">Tema:</label>
-                <select name="tema" class="form-select" id="cbx_tema">
-                    <option value="">Elija una opción.</option>
-                    <?php foreach ( $utilities->temas as $id => $value ) : ?>
-                        <option value="<?= $id; ?>"><?= $value; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="noticia-informacion" class="form-label">Informacion:</label>
-                <textarea name="informacion" type="text" class="form-control" id="inp_informacion" require></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="noticia-img" class="form-label">Imagen:</label>
-                <input name="imagen" type="file" accept=".jpg, .png" class="form-control" id="inp_img" require>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-            </div>
-        </form>
+        </div>
     </div>
+</div>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
-    <script src="../Helpers/script.js"></script>
-
-<br  /><br  />
-<?php echo $layout->printFooter (); ?>
+<br /><br />
+<?php echo $layout->printFooter(); ?>

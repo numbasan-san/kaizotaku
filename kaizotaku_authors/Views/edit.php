@@ -33,9 +33,9 @@
             $tema = $registro['topics'];
             $informacion = $registro['information'];
             $imagen = $registro['related_image'];
+            $no_id = false;
         } else {
-            echo "El registro no fue encontrado.";
-            exit; // Detener la ejecución si no se encontró el registro
+            $no_id = true;
         }
     } else {
         echo "ID inválido.";
@@ -47,35 +47,39 @@
     <div class="col-md-10"></div>
     <div class="col-md-2"></div>
 </div>
-<hr />
+    <hr />
 <div class="row">
-    <form action="../Functions/edit.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="noticia-titulo" class="form-label">Titulo:</label>
-            <input name="titulo" type="text" class="form-control" id="inp_titulo" value="<?= $titulo ?>" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="noticia-tema">Tema:</label>
-            <select name="tema" class="form-select" id="cbx_tema">
-                <option value="">Elija una opción.</option>
-                <?php foreach ($utilities->temas as $id => $value) : ?>
-                    <option value="<?= $id; ?>" <?= ($id == $tema) ? 'selected' : ''; ?>><?= $value; ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="noticia-informacion" class="form-label">Informacion:</label>
-            <textarea name="informacion" type="text" class="form-control" id="inp_informacion" required><?= $informacion ?></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="noticia-img" class="form-label">Imagen relacionada:</label>
-            <input name="imagen" type="file" accept=".jpg, .png" class="form-control" id="inp_img">
-        </div>
-        <div class="modal-footer">
-            <a href="../index.php" class="btn btn-secondary">Regresar</a>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-    </form>
+    <?php if ($no_id): ?>
+        <h2>El registro no fue encontrado.</h2>
+    <?php else: ?>
+        <form action="../Functions/edit.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="noticia-titulo" class="form-label">Titulo:</label>
+                <input name="titulo" type="text" class="form-control" id="inp_titulo" value="<?= $titulo ?>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="noticia-tema">Tema:</label>
+                <select name="tema" class="form-select" id="cbx_tema">
+                    <option value="">Elija una opción.</option>
+                    <?php foreach ($utilities->temas as $id => $value) : ?>
+                        <option value="<?= $id; ?>" <?= ($id == $tema) ? 'selected' : ''; ?>><?= $value; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="noticia-informacion" class="form-label">Informacion:</label>
+                <textarea name="informacion" type="text" class="form-control" id="inp_informacion" required><?= $informacion ?></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="noticia-img" class="form-label">Imagen relacionada:</label>
+                <input name="imagen" type="file" accept=".jpg, .png" class="form-control" id="inp_img">
+            </div>
+            <div class="modal-footer">
+                <a href="../index.php" class="btn btn-secondary">Regresar</a>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    <?php endif; ?>
 </div>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>

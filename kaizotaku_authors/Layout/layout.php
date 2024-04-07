@@ -12,10 +12,7 @@ class Layout {
 
     public function printHeader() {
         $directory = ($this->isRoot) ? "" : "../";
-        $path = ($this->isLogged) ? "./Functions/" : "./Views/";
-        $login_directory = ($this->isRoot) ? $path : "";
-        $login_logout = ($this->isLogged) ? "logout.php" : "login.php"; // Cambio de login a logout según el estado de inicio de sesión
-        $login_logout_text = ($this->isLogged) ? "logout" : ""; // Texto de enlace para login o logout según el estado de inicio de sesión
+        $logout_link = ($this->isLogged) ? "<a href=" . $directory . "Functions/logout.php>logout</a>" : ""; // Texto de enlace para login o logout según el estado de inicio de sesión
         $header = <<<EOF
             <!DOCTYPE html>
             <html>
@@ -30,7 +27,6 @@ class Layout {
                 <body>
                     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
                         <div class="container-fluid">
-							::before
                             <a class="navbar-brand" href="{$directory}index.php">Kaizotaku</a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
@@ -38,7 +34,7 @@ class Layout {
                             <div class="collapse navbar-collapse float-end" id="navbarCollapse">
                                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                                     <li>
-                                        <a href="{$login_directory}{$login_logout}">{$login_logout_text}</a>
+                                        {$logout_link}
                                     </li>
                                 </ul>
                             </div>

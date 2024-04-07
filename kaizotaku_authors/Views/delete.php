@@ -58,7 +58,8 @@
         </div>
         <div class="mb-3">
             <label for="noticia-img" class="form-label">Imagen relacionada:</label>
-            <input name="imagen" type="file" accept=".jpg, .png" class="form-control" id="inp_img" readonly>
+            <input name="imagen" type='hidden' class="form-control" id="inp_img" value="<?= "../Functions/imgs/" . $registro['related_image']; ?>" readonly>
+            <img class="form-label" style="width: 25%; height: 75%;" src="<?= "../Functions/imgs/" . $registro['related_image']; ?>"  />
         </div>
         <div class="modal-footer">
             <a href="../index.php" class="btn btn-secondary">Regresar</a>

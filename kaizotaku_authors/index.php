@@ -14,6 +14,13 @@
     
         $utilities = new Utilities();
         $layout = new Layout(true, true);
+        
+        // Consulta SQL para seleccionar todas las noticias
+        $sql = "SELECT * FROM noticias";
+        
+        // Preparar y ejecutar la consulta
+        $stmt = $pdo->query($sql);
+
     }
 
 ?>
@@ -30,29 +37,24 @@
         <p>HISTORIAL DE PUBLICACIONES</p>
 
         <?php
-        // Consulta SQL para seleccionar todas las noticias
-        $sql = "SELECT * FROM noticias";
-        
-        // Preparar y ejecutar la consulta
-        $stmt = $pdo->query($sql);
-
-        // Iterar sobre los resultados y mostrar cada noticia
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo '<div class="col-md-3">';
-            echo '<div class="card">';
-            echo '<div class="card-body">';
-            echo '<img class="card-img" src="Funciones/Fotos/' . $row['related_image'] . '"  />';
-            echo '<hr />';
-            echo '<h6 class="card-title"><b>' . $row['title'] . '</b></h6>';
-            echo '<p class="card-text">' . $row['publication_date'] . '</p>';
-            echo '<p class="card-text">' . $utilities->temas[$row['topics']] . '</p>';
-            echo '<a href="./Views/edit.php?id=' . $row['id'] . '" class="btn btn-success">Editar</a>';
-            echo '<a href="./Views/delete.php?id=' . $row['id'] . '" class="btn btn-danger">Eliminar</a>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-        }
+            // Iterar sobre los resultados y mostrar cada noticia
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
         ?>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <img class="card-img" src="<?= "Functions/imgs/" . $row['related_image']; ?>"  />
+                            <hr />
+                        <h6 class="card-title"><b><?= $row['title'] ?></b></h6>
+                        <p class="card-text"><?= $row['publication_date'] ?></p>
+                        <p class="card-text"><?= $row['search_code'] ?></p>
+                        <p class="card-text"><?= $utilities->temas[$row['topics']] ?></p>
+                        <a href="./Views/edit.php?id=<?= $row['id'] ?>" class="btn btn-success">Editar</a>
+                        <a href="./Views/delete.php?id=<?= $row['id'] ?>" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        <?php endwhile ?>
 
     </div>
 <br  /><br  />
