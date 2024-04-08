@@ -35,7 +35,6 @@
 <div class="row">
     <div class="row">
         <div class="col-md-7">
-            News Details
             <h2 class="card-text"><b><?= $registro['title'] ?></b></h2> <!-- Aquí va el nombre de la compañía reclutante. -->
             <p class="card-text"><?= $utilities->temas[$registro['topics']] ?></p> <!-- Aquí el lugar de ubicación de las oficinas. -->
                 <hr  />

@@ -26,17 +26,6 @@
         $stmt->execute([$id]);
         $registro = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Verificar si se encontró el registro
-        if ($registro) {
-            // Asignar los valores del registro a variables
-            $titulo = $registro['title'];
-            $tema = $registro['topics'];
-            $informacion = $registro['information'];
-            $imagen = $registro['related_image'];
-            $no_id = false;
-        } else {
-            $no_id = true;
-        }
     } else {
         echo "ID inválido.";
         exit; // Detener la ejecución si no se proporcionó un ID válido
@@ -49,30 +38,35 @@
 </div>
     <hr />
 <div class="row">
-    <?php if ($no_id): ?>
+    <?php if (!$registro): ?>
         <h2>El registro no fue encontrado.</h2>
     <?php else: ?>
         <form action="../Functions/edit.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
+            <input name="titulo" type="hidden" class="form-control" id="inp_titulo" value="<?= $registro['search_code']; ?>" required>
             <div class="mb-3">
                 <label for="noticia-titulo" class="form-label">Titulo:</label>
-                <input name="titulo" type="text" class="form-control" id="inp_titulo" value="<?= $titulo ?>" required>
+                <input name="titulo" type="text" class="form-control" id="inp_titulo" value="<?= $registro['title']; ?>" required>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="noticia-tema">Tema:</label>
                 <select name="tema" class="form-select" id="cbx_tema">
                     <option value="">Elija una opción.</option>
                     <?php foreach ($utilities->temas as $id => $value) : ?>
-                        <option value="<?= $id; ?>" <?= ($id == $tema) ? 'selected' : ''; ?>><?= $value; ?></option>
+                        <option value="<?= $id; ?>" <?= ($id == $registro['topics']) ? 'selected' : ''; ?>><?= $value; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <div class="mb-3">
                 <label for="noticia-informacion" class="form-label">Informacion:</label>
-                <textarea name="informacion" type="text" class="form-control" id="inp_informacion" required><?= $informacion ?></textarea>
+                <textarea name="informacion" type="text" class="form-control" id="inp_informacion" required><?= $registro['information'] ?></textarea>
             </div>
             <div class="mb-3">
                 <label for="noticia-img" class="form-label">Imagen relacionada:</label>
-                <input name="imagen" type="file" accept=".jpg, .png" class="form-control" id="inp_img">
+                <input name="imagen" type='file' class="form-control" id="inp_img" value="<?= "../Functions/imgs/" . $registro['related_image']; ?>" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="noticia-img" class="form-label">Imagen actual:</label>
+                <img class="form-label" style="width: 25%; height: 75%;" src="<?= "../Functions/imgs/" . $registro['related_image']; ?>"  />
             </div>
             <div class="modal-footer">
                 <a href="../index.php" class="btn btn-secondary">Regresar</a>

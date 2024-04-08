@@ -2,7 +2,7 @@
 
     class utilities {
 
-        public $temas = [ 1 => "Anime", 2 => "Cultura", 3 => "Manga", 4 => "Mercancía", 5 => "Tecnología", 5 => "Videojuegos", 6 => "Japón"];
+        public $temas = [ 1 => "Anime", 2 => "Cultura", 3 => "Manga", 4 => "Mercancía", 5 => "Tecnología", 6 => "Videojuegos", 7 => "Japón"];
 
         public function GetLastElement ( $list ) {
 
