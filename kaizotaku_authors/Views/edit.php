@@ -13,7 +13,7 @@
         require_once '../Settings/conect.php';
         
         $utilities = new Utilities();
-        $layout = new Layout(false, true);
+        $layout = new Layout(false, true, true, 'Editar Noticia - Kaizotaku Authors');
     }
 
     // Verificar si se proporcionó un ID válido en la URL

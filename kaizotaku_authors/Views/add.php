@@ -11,7 +11,7 @@ session_start();
         require_once "../Helpers/utilities.php";
 
         $utilities = new Utilities();
-        $layout = new Layout(false, true);
+        $layout = new Layout(false, true, true, 'Publicar Noticia - Kaizotaku Authors');
 
         if (isset($_GET['error'])) {
             // Obtener los nombres de los campos vacíos del parámetro en la URL
@@ -30,7 +30,7 @@ session_start();
 </div>
 <?php if (isset($errorMessage)) : ?>
     <div class="alert alert-danger text-center" role="alert">
-        <p><?= $errorMessage; ?>.</p>
+        <p><?= htmlspecialchars($errorMessage); ?>.</p>
     </div>
 <?php endif; ?>
 <hr />

@@ -1,5 +1,7 @@
 <?php
     session_start();
+    header("X-Frame-Options: DENY");
+    header("Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self'; frame-src 'self'; child-src 'none';");
 
     require_once '../Settings/conect.php';
 

@@ -3,8 +3,6 @@
     require_once "../Helpers/utilities.php";
     require_once '../Settings/conect.php';
     
-    $utilities = new Utilities();
-    $layout = new Layout($utilities, false);
 
     // Verificar si se proporcionó un search_code válsearch_codeo en la URL
     if (isset($_GET['search_code']) && !empty($_GET['search_code'])) {
@@ -25,6 +23,8 @@
         echo "search_code inválido.";
         exit; // Detener la ejecución si no se proporcionó un search_code válsearch_codeo
     }
+    $utilities = new Utilities();
+    $layout = new Layout($utilities, false, true, $registro['title'] . " - Kaizotaku");
 ?>
 <?php echo $layout->printHeader(); ?>
 <div class="row">
@@ -35,7 +35,7 @@
 <div class="row">
     <div class="row">
         <div class="col-md-7">
-            <h2 class="card-text"><b><?= $registro['title'] ?></b></h2> <!-- Aquí va el nombre de la compañía reclutante. -->
+            <h2 class="card-text"><b><?= $registro['title'] ?>.</b></h2> <!-- Aquí va el nombre de la compañía reclutante. -->
             <p class="card-text"><?= $utilities->temas[$registro['topics']] ?></p> <!-- Aquí el lugar de ubicación de las oficinas. -->
                 <hr  />
             <p class="card-text"><?= $registro['information'] ?></p> <!-- Aquí va la descripción del empleo, los detalles de las aptitudes y la información de contacto de la empresa.  -->

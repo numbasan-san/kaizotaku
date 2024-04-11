@@ -5,7 +5,7 @@
     require_once '../Settings/conect.php';
 
     $utilities = new Utilities();
-    $layout = new Layout($utilities, false);
+    $layout = new Layout($utilities, false, true, $utilities->temas[$_GET["tema"]] . " - Kaizotaku");
     
     // Consulta SQL para seleccionar todas las noticias
     $sql = "SELECT * FROM noticias WHERE topics = " . $_GET["tema"];
@@ -36,7 +36,7 @@
                         <a href="news.php?search_code=<?= $row['search_code'] ?>" class="card-link">
                             <img class="card-img" src="<?= "../../kaizotaku_authors/Functions/imgs/" . $row['related_image']; ?>"  />
                                 <hr />
-                            <h6 class="card-title"><b><?= $row['title'] ?></b></h6>
+                            <h6 class="card-title"><b><?= $row['title'] ?>.</b></h6>
                             <p class="card-text"><?= $row['publication_date'] ?></p>
                             <p class="card-text"><?= $utilities->temas[$row['topics']] ?></p>
                         </a>

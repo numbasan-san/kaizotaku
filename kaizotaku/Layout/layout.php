@@ -5,22 +5,26 @@ class Layout
 
     private $isRoot;
 
-    public function __construct($utilities, $isRoot = false)
+    public function __construct($utilities, $isRoot = false, $isTitle = false, $title = '')
     {
         $this->isRoot = $isRoot;
 		$this->utilities = $utilities;
+		$this->isTitle = $isTitle;
+		$this->title = $title;
     }
 
     public function printHeader()
     {
         $directory = ($this->isRoot) ? "" : "../";
         $utilities = ($this->utilities);
+		$title_name = ($this->isTitle) ? $this->title : "Kaizotaku - Noticias Otaku y Gamer";
 		$header = <<<EOF
 		<!DOCTYPE html>
 		<html>
 			<head>
 				<meta charset="UTF-8">
-				<title>Kaizotaku - Noticas Otaku y Gamer</title>
+				<title>{$title_name}</title>
+				<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self'; frame-src 'self'; child-src 'none';" />
 				<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 				<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

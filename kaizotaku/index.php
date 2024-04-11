@@ -31,10 +31,10 @@
             <div class="col-md-2">
                 <div class="card">
                     <div class="card-body">
-                        <a href="Views/news.php?search_code=<?= $row['search_code'] ?>" class="card-link">
+                        <a href="Views/news.php?search_code=<?= $row['search_code'] ?>" class="card-text">
                             <img class="card-img" src="<?= "../kaizotaku_authors/Functions/imgs/" . $row['related_image']; ?>"  />
                                 <hr />
-                            <h6 class="card-title"><b><?= $row['title'] ?></b></h6>
+                            <h6 class="card-title"><b><?= $row['title'] ?>.</b></h6>
                             <p class="card-text"><?= $row['publication_date'] ?></p>
                             <p class="card-text"><?= $utilities->temas[$row['topics']] ?></p>
                         </a>
