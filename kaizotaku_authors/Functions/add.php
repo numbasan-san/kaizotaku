@@ -45,24 +45,14 @@
         $img_extension = pathinfo($img_name, PATHINFO_EXTENSION);
         $img_name_generated = $author . '_' . $search_code . '.' . $img_extension;
 
-        // Obtener la ruta absoluta de la carpeta de destino
-        $current_directory = dirname(__FILE__); // Ruta actual del archivo
-        $destiny_path = $current_directory . "/imgs/news_img/";
-
-        // Verificar si la carpeta de destino existe
-        if (!file_exists($destiny_path)) {
-            mkdir($destiny_path, 0777, true); // Crea la carpeta si no existe
-        }
-
-        // Mover la imagen a la carpeta de destino con el nuevo nombre
-        $temp_img = $_FILES["imagen"]["tmp_name"];
-        move_uploaded_file($temp_img, $destiny_path . $img_name_generated);
+        // Obtener los datos binarios de la imagen
+        $img_data = file_get_contents($_FILES["imagen"]["tmp_name"]);
 
         // Preparar la consulta SQL para insertar la noticia
-        $stmt_insert_noticia = $pdo->prepare("INSERT INTO noticias (title, publication_date, topics, author, related_image, information, search_code) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt_insert_noticia = $pdo->prepare("INSERT INTO noticias (title, publication_date, topics, author, related_image_name, img_source, information, search_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
         // Ejecutar la consulta para insertar la noticia
-        $stmt_insert_noticia->execute([$title, $publication_date, $topics, $author, $img_name_generated, $information, $search_code]);
+        $stmt_insert_noticia->execute([$title, $publication_date, $topics, $author, $img_name_generated, $img_data, $information, $search_code]);
 
         // Verificar si se insertó correctamente la noticia
         if ($stmt_insert_noticia->rowCount() > 0) {

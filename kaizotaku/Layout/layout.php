@@ -61,13 +61,10 @@ EOF;
 							</div>
 							
 							<div class="col-md-8">
-								<form class="d-flex container-fluid" role="search">
-EOF;
-		$header .=					'<input type="hidden" name="csrf_token" value="<?php echo $_SESSION["csrf_token"]; ?>">';
-		$header .=	<<<EOF
-									<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+								<div class="d-flex container-fluid">
+									<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">									
 									<button class="btn btn-outline-success" type="submit">Search</button>
-								</form>
+								</div>
 							</div>
 							
 							<div class="col-md-2">

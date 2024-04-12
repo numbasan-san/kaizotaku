@@ -2,7 +2,7 @@
     session_start();
     header("X-Frame-Options: DENY");
     header("X-Content-Type-Options: nosniff");
-    header("Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self'; frame-src 'self'; child-src 'none';");
+    // header("Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self'; frame-src 'self'; child-src 'none';");
 
     // Verificar si el usuario no ha iniciado sesión
     if (!isset($_SESSION['user_id'])) {
@@ -50,13 +50,13 @@
         $utilities = new Utilities();
     }
 ?>
-<?php echo $layout->printHeader(); ?>
+<?= $layout->printHeader(); ?>
 
 <div class="row">
     <div class="col-md-10"></div>
     <div class="col-md-2">
         <form action="./Views/add.php" method="post">
-            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
             <button type="submit" class="btn btn-primary">Publicar Noticia</button>
         </form>
     </div>
@@ -72,8 +72,8 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <img class="card-img" src="<?= "Functions/imgs/news_img/" . $row['related_image']; ?>" />
-                    <hr />
+                    <img class="card-img" src="data:image/jpeg;base64,<?= base64_encode($row['img_source']); ?>" />
+                        <hr />
                     <h6 class="card-title"><b><?= $row['title'] ?>.</b></h6>
                     <p class="card-text"><?= $row['publication_date'] ?></p>
                     <p class="card-text"><?= $row['search_code'] ?></p>
@@ -86,4 +86,4 @@
     <?php endwhile ?>
 </div>
 <br /><br />
-<?php echo $layout->printFooter(); ?>
+<?= $layout->printFooter(); ?>

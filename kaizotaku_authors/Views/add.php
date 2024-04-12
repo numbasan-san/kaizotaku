@@ -1,5 +1,5 @@
 <?php
-session_start();
+    // session_start();
 
     // Verificar si el usuario no ha iniciado sesión
     if (!isset($_SESSION['user_id'])) {

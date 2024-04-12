@@ -5,7 +5,7 @@
     
     header("X-Frame-Options: DENY");
     header("X-Content-Type-Options: nosniff");
-    header("Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self'; frame-src 'self'; child-src 'none';");
+    // header("Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self'; frame-src 'self'; child-src 'none';");
 
     // Verificar si se proporcionó un search_code válsearch_codeo en la URL
     if (isset($_GET['search_code']) && !empty($_GET['search_code'])) {
@@ -38,15 +38,15 @@
 <div class="row">
     <div class="row">
         <div class="col-md-7">
-            <h2 class="card-text"><b><?= $registro['title'] ?>.</b></h2> <!-- Aquí va el nombre de la compañía reclutante. -->
-            <p class="card-text"><?= $utilities->temas[$registro['topics']] ?></p> <!-- Aquí el lugar de ubicación de las oficinas. -->
+            <h2 class="card-text"><b><?= $registro['title'] ?>.</b></h2>
+            <p class="card-text"><?= $utilities->temas[$registro['topics']] ?></p>
                 <hr  />
-            <p class="card-text"><?= $registro['information'] ?></p> <!-- Aquí va la descripción del empleo, los detalles de las aptitudes y la información de contacto de la empresa.  -->
+            <p class="card-text"><?= $registro['information'] ?></p>
         </div>
         <div class="col-md-5">
             <div class="card">
-                <div class="card-body">
-                <img class="card-img" src="<?= "../../kaizotaku_authors/Functions/imgs/news_img/" . $registro['related_image']; ?>"  /> <!-- Aquí va el logo de la compañía. La imagen que está adjunta es solo de prueba. -->
+                <div class="card-body">                    
+                    <img class="card-img" src="data:image/jpeg;base64,<?= htmlspecialchars(base64_encode($registro['img_source'])); ?>" />
                         <hr  />
                     <p class="card-text"><?= $registro['author'] ?>. <?= $registro['publication_date'] ?></p> <!-- Un agregado que se me ocurrió para que el usuario sepa cuando la propuesta fue hecha. -->
                 </div>

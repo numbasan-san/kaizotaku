@@ -1,6 +1,6 @@
 
 <?php
-    session_start();
+    // session_start();
     require_once "../Layout/layout.php";
     require_once "../Helpers/utilities.php";
 

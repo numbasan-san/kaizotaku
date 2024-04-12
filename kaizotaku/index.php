@@ -3,16 +3,9 @@
     require_once "Helpers/utilities.php";
     require_once './Settings/conect.php';
 
-    // Configurar cabeceras de seguridad del servidor
     header("X-Frame-Options: DENY");
     header("X-Content-Type-Options: nosniff");
-    header("Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self'; frame-src 'self'; child-src 'none';");
-
-    // Generar un token CSRF único y guardarlo en la sesión del usuario
-    if (!isset($_SESSION['csrf_token'])) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
-
+    
     $utilities = new Utilities();
     $layout = new Layout($utilities, true);
     
@@ -41,7 +34,7 @@
             <div class="card">
                 <div class="card-body">
                     <a href="Views/news.php?search_code=<?= htmlspecialchars($row['search_code']) ?>" class="card-text">
-                        <img class="card-img" src="<?= "../kaizotaku_authors/Functions/imgs/news_img/" . htmlspecialchars($row['related_image']) ?>"  />
+                        <img class="card-img" src="data:image/jpeg;base64,<?= htmlspecialchars(base64_encode($row['img_source'])); ?>" />
                             <hr />
                         <h6 class="card-title"><b><?= htmlspecialchars($row['title']) ?>.</b></h6>
                         <p class="card-text"><?= htmlspecialchars($row['publication_date']) ?></p>

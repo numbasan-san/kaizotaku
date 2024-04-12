@@ -1,9 +1,9 @@
 
 <?php
-    session_start();
+    // session_start();
     header("X-Frame-Options: DENY");
     header("X-Content-Type-Options: nosniff");
-    header("Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self'; frame-src 'self'; child-src 'none';");
+    // header("Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self'; frame-src 'self'; child-src 'none';");
 
     // Verificar si el usuario no ha iniciado sesión
     if (!isset($_SESSION['user_id'])) {
@@ -76,11 +76,12 @@
             </div>
             <div class="mb-3">
                 <label for="noticia-img" class="form-label">Imagen relacionada:</label>
-                <input name="imagen" type='file' class="form-control" id="inp_img" value="<?= "../Functions/imgs/news_img/" . $registro['related_image']; ?>" readonly>
+                <input name="imagen" type='file' class="form-control" id="inp_img">
             </div>
             <div class="mb-3">
                 <label for="noticia-img" class="form-label">Imagen actual:</label>
-                <img class="form-label" style="width: 25%; height: 75%;" src="<?= "../Functions/imgs/news_img/" . $registro['related_image']; ?>"  />
+                <img class="card-img" />
+                <img class="form-label" style="width: 25%; height: 75%;" src="data:image/jpeg;base64,<?= base64_encode($registro['img_source']); ?>"  />
             </div>
             <div class="modal-footer">
                 <a href="../index.php" class="btn btn-secondary">Regresar</a>
