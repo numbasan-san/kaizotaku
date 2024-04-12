@@ -5,17 +5,20 @@ class Layout {
     private $isRoot;
     private $isLogged;
 
-    public function __construct($isRoot = false, $isLogged = false, $isTitle = false, $title = '') {
+    public function __construct($isRoot = false, $isLogged = false, $isTitle = false, $title = '', $photo_path = NULL) {
         $this->isRoot = $isRoot;
         $this->isLogged = $isLogged;
         $this->isTitle = $isTitle;
         $this->title = $title;
+        $this->photo_path = $photo_path;
     }
 
     public function printHeader() {
         $directory = ($this->isRoot) ? "" : "../";
         $logout_link = ($this->isLogged) ? "<a href=" . $directory . "Functions/logout.php>logout</a>" : ""; // Texto de enlace para login o logout según el estado de inicio de sesión
         $title_name = ($this->isTitle) ? $this->title : "Kaizotaku - Noticias Otaku y Gamer";
+        $photo = ($this->photo_path !== NULL) ? ($this->photo_path) : 'generic.png';
+        $user_photo = ($this->isLogged) ? '<li class="nav-item col-6"><div class="dropdown"><img style="border-radius: 50%; cursor: pointer;" width="40" src="'. $directory . 'Functions/imgs/profile_img/'. $photo .'" class="dropdown-toggle" /></div></li>' : "";
         $header = <<<EOF
             <!DOCTYPE html>
             <html>
@@ -30,20 +33,34 @@ class Layout {
                 </head>
                 <body>
                     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-                        <div class="container-fluid">
+                        <div class="container float-center">
                             <a class="navbar-brand" href="{$directory}index.php">Kaizotaku</a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="collapse navbar-collapse float-end" id="navbarCollapse">
-                                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                                    <li>
+                            
+							<div class="col-md-10">
+                            </div>
+
+                            <div class="collapse navbar-collapse float-end row" id="navbarCollapse">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item col-5">
                                         {$logout_link}
                                     </li>
                                 </ul>
                             </div>
+                            <div class="collapse navbar-collapse float-end row" id="navbarCollapse">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item col-1">
+                                        {$user_photo}
+                                    </li>
+                                </ul>
+                            </div>
+
                         </div>
                     </nav>
+
+            
 
                     <main class="container">
 EOF;

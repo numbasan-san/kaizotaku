@@ -9,9 +9,20 @@ session_start();
     } else {
         require_once "../Layout/layout.php";
         require_once "../Helpers/utilities.php";
+        require_once '../Settings/conect.php';
 
+        $user_id = $_SESSION['user_id'];
+        $stmt = $pdo->prepare("SELECT profile_photo FROM autores WHERE id = :user_id");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Obtener la URL de la foto de perfil del usuario
+        $user_photo_url = $user['profile_photo'];
+
+        // Crear una instancia del layout con la URL de la foto de perfil del usuario como parámetro
+        $layout = new Layout(false, true, true, 'Kaizotaku Authors', $user_photo_url);
         $utilities = new Utilities();
-        $layout = new Layout(false, true, true, 'Publicar Noticia - Kaizotaku Authors');
 
         if (isset($_GET['error'])) {
             // Obtener los nombres de los campos vacíos del parámetro en la URL

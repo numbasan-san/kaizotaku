@@ -19,7 +19,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     // Verificar si se eliminó correctamente
     if ($result) {
         // Eliminar la imagen de la carpeta
-        $file_path = "imgs/" . $related_image;
+        $file_path = "imgs/news_img/" . $related_image;
         if (file_exists($file_path)) {
             unlink($file_path); // Eliminar el archivo de imagen
         }
